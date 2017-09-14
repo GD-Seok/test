@@ -1,5 +1,5 @@
 package gd;
-
+//testtesttesttest
 //사용자로부터 순수 입력받는 값만 처리해주는 Class
 public class BoardCommand {
 	//추가
