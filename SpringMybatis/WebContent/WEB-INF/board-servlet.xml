@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<!-- 컨트롤러를 알려주는 역할 -->
+<bean id="defaultHandlerMapping" 
+class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+<!-- DB접속 방법 -> JNDI 방법 -->
+<!-- <bean id="boardDAO" class="gd.BoardDAO"/> -->
+
+<!-- DB접속 방법 -> MyBatis방법 -->
+<bean id="boardDAO" class="gd.SqlMapBoardDao">
+	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+</bean>
+
+<!-- 1.글 목록 보기 -->
+<bean name="/list.do" class="gd.ListActionController">
+	<property name="dao">
+		<ref bean="boardDAO"/>
+	</property>
+</bean>
+
+
+
+<!-- 컨트롤러(=모델2의 액션 클래스) 페이지 이동-->
+<bean name="/writeui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	<property name="viewName" value="write"></property>
+</bean>
+
+<!-- 글쓰기(글 수정하기와 거의 유사) DB연결해서 -->
+<bean name="/write.do" class="gd.WriteActionController">
+	<property name="dao">
+		<ref bean="boardDAO"/>
+	</property>
+	<property name="commandClass" value="gd.BoardCommand"/>
+</bean>
+
+<!-- 4.글 상세보기 -->
+<bean name="/retrieve.do" class="gd.RetrieveActionController">
+	<property name="dao">
+		<ref bean="boardDAO"/>
+	</property>
+</bean>
+
+<!-- 5.글 수정하기 -->
+<bean name="/update.do" class="gd.UpdateActionController">
+	<property name="dao">
+		<ref bean="boardDAO"/>
+	</property>
+	<property name="commandClass" value="gd.BoardCommand"/>
+</bean>
+
+<!-- 6.글 삭제하기 -->
+<bean name="/delete.do" class="gd.DeleteActionController">
+	<property name="dao">
+		<ref bean="boardDAO"/>
+	</property>
+</bean>
+
+<!-- 7.글 검색하기 -->
+<bean name="/search.do" class="gd.SearchActionController">
+	<property name="dao">
+		<ref bean="boardDAO"/>
+	</property>
+</bean>
+
+<!-- 요청 명령어에 따른 액션 클래스 (=>컨트롤러 액션 클래스) 등록 -->
+<!-- <bean name="/index2.do" class="gd.TestActionController"/> -->
+
+<!-- viewResolver(위치, 이동할 페이지 지정) -->
+<bean id="viewResolover"
+class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	<property name="prefix" value="/"/>
+	<property name="suffix" value=".jsp"/>
+</bean>
+
+</beans>

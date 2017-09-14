@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 	<!-- typeAliases ->(생략 가능)
+ 		 패키지가 긴 DTO Class의 이름의 별칭을 부여할 때 사용
+ 	-->
+ 	<typeAliases>
+ 		<typeAlias type="gd.BoardCommand"
+ 						alias="board"/>
+ 	</typeAliases>
+ 	
+ 	<!-- mappers 필수 (어떤 table을 불러와라)
+ 		불러올 table의 정보를 가진 xml 파일을 지정할 때 사용-->
+ 	<mappers>
+ 		<mapper resource="gd/Board.xml"/>
+ 	</mappers>
+ </configuration>

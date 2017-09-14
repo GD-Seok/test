@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board"> 
+	 <!-- springboard 테이블에서 SQL 작업 -->
+	 <select id="list" resultType="board">
+	 	select * from springboard order by num desc
+	 </select>
+	 
+	 <!-- 최대값 구하기 --> <!-- resultType="java.lang.Integer or Integer or int"-->
+	 <select id="getNewNum" resultType="int">
+	 	select max(num) from springboard
+	 </select>
+	 
+	 <!-- 글 쓰기 ([oracle]-> sysdate, [mysql] -> now()  )-->
+	 <select id="write" parameterType="board">
+	 	insert into springboard(num,author,title,content,writeday)
+	 	values(#{num},#{author},#{title},#{content},sysdate)
+	 </select>
+	 
+	 <!-- 조회수를 증가 --><!-- MyBatis 에서는 매개변수를 #{매개변수명} 으로 받아옴 -->
+	 <update id="updateReadcnt" parameterType="String">
+	 	update springboard set readcnt=readcnt+1 where num=#{num}
+	 </update>
+	 
+	 <!-- 게시물 번호 레코드 상세보기 --><!-- MyBatis SQL문에는 ; 넣지 않기 -->
+	 <select id="retrieve" resultType="board" parameterType="String">
+	 	select * from springboard where num=#{num}
+	 </select>
+	 <!-- resultType="받을 자료형을 설정"
+	 		parameterType="#{num}의 자료형을 설정" 
+	  -->
+	 
+	 <!-- 글 수정하기 -->
+	 <update id="update" parameterType="board">
+	 	update springboard set title=#{title},content=#{content},author=#{author}
+	 	where num=#{num}
+	 </update>
+	 
+	 <!-- 글 삭제하기 -->
+	 <delete id="delete" parameterType="String">
+	 	delete springboard where num=#{num}
+	 </delete>
+	 
+	 <!-- 글 검색하기 --><!-- name과 value 값이 gd.BoardCommand에 들어있음. 따라서 Type="board" -->
+	 <select id="search" resultType="board" parameterType="board">
+	 	select * from springboard where ${searchName} LIKE '%${searchValue}%'
+	 	order by num desc
+	 </select>
+	 
+	  
+</mapper>
