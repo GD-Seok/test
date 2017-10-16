@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Mybatis에서 sql 구문을 작성하기 위해서 반드시 위의 주소를 입력해주어야 함 -->
+
+<mapper namespace="person">
+	<select id="personlist" resultType="personDto">
+		select * from Person;
+	</select>
+</mapper>

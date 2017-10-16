@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apik.tiles.service.dao.CourseDAO">
+	
+	<select id="selectCourseOne"  parameterType="Integer" resultType="courseVO">
+		select cosnum, play, cosname, lv, intro 
+		from course 
+		where cosnum=#{cosnum}
+	</select>
+	
+	<select id="selectCourseList" parameterType="map" resultType="courseVO">
+		select cosnum, play, cosname, lv 
+		from course 
+		where play=#{play} and lv=#{lv}
+	</select>
+	
+	
+	<select id="selectCourseCount" parameterType="map" resultType="int">
+		select count(*) 
+		from course 
+		where play=#{play} and lv=#{lv}
+	</select>	
+
+</mapper>
