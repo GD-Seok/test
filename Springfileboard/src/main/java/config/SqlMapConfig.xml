@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 	<typeAliases>
+ 		<typeAlias alias="BoardCommand" 
+	                    type="com.board.domain.BoardCommand"/>		
+ 	</typeAliases>
+ 	
+<!--
+	 		<mapper resource="sql/Cosloc.xml"/>
+ 		<mapper resource="sql/Course.xml"/>
+ 		<mapper resource="sql/Icontype.xml"/>
+ 		<mapper resource="sql/Liket.xml"/>
+ 		<mapper resource="sql/Login.xml"/>
+ 		<mapper resource="sql/Map.xml"/> 
+ -->
+ 	<mappers>
+ 		<mapper resource="com/board/dao/BoardMapper.xml"/>
+ 	</mappers>
+ </configuration>

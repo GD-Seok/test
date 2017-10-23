@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="person">
+	<!-- id             VARCHAR(50)  Email
+			passwd   VARCHAR(25)  비밀번호
+			name      VARCHAR(20)  회원명
+			gender    CHAR(1)          성별 (M,W)
+			age         Integer(3)       (10~90)
+		 -->
+
+	<!-- pseron 테이블에서 SQL 작업 -->
+	<!-- 전체 불러오기 -->
+	<select id="listperson" parameterType="map" resultType="personDto">
+		select id,name,gender,age from person 
+				<where>
+					<if test="keyWord!==null and keyField=='id'">
+						id Like '%'+#{keyWord}+'%'
+					</if>
+					<if test="keyWord!==null and keyField=='name'">
+						name Like CONCAT('%',#{keyWord},'%')
+					</if>
+					<if test="keyWord!==null and keyField=='gender'">
+						gender Like CONCAT('%',#{keyWord},'%')
+					</if>
+					<if test="keyWord!==null and keyField=='age'">
+						age Like CONCAT('%',#{keyWord},'%')
+					</if>					
+				</where> 
+				order by id desc limit 1,10
+	</select>
+	
+	<select id="selectCount" parameterType="map" resultType="Integer">
+		select count(*) from person
+			<where>
+					<if test="keyWord!==null and keyField=='id'">
+						id Like CONCAT('%',#{keyWord},'%')
+					</if>
+					<if test="keyWord!==null and keyField=='name'">
+						name Like CONCAT('%',#{keyWord},'%')
+					</if>
+					<if test="keyWord!==null and keyField=='gender'">
+						gender Like CONCAT('%',#{keyWord},'%')
+					</if>
+					<if test="keyWord!==null and keyField=='age'">
+						age Like CONCAT('%',#{keyWord},'%')
+					</if>				
+			</where>
+    </select> 
+	
+	<!-- 회원 로그인 확인 , id가 있을 경우, 1반환, 없을경우 0 반환-->
+	<select id="loginperson">
+		select count(id) from person where id=#{id}
+	</select>
+	
+	<!-- 회원등록 -->
+	<insert id="insertperson" parameterType="personDto">
+		insert into person values(#{id},#{passwd},#{name},#{gender},#{age})
+	</insert>
+	
+	<!-- 회원 수정 -->
+	<update id="updateperson" parameterType="personDto">
+		update person set id=#{id},name=#{name},gender=#{gender},age=#{age} where id=#{id}
+	</update>
+	<!-- 회원 비밀번호 변경 -->
+	<update id="updatepersonpasswd" parameterType="String">
+		update person set passwd=#{passwd} where id=#{id}
+	</update>
+	
+	<!-- 회원 삭제 -->
+	<delete id="deleteperson" parameterType="String">
+		delete from person where id=#{id}
+	</delete>
+
+
+</mapper>

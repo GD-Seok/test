@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="boardList" template="/WEB-INF/tiles-view/template/layout.jsp">
+        <put-attribute name="title" value="메인 페이지"/>
+        <put-attribute name="menu" value="/WEB-INF/tiles-view/template/menu.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/tiles-view/template/header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/tiles-view/boardList.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/tiles-view/template/footer.jsp"/>
+                
+        <put-attribute name="css" value="/WEB-INF/tiles-view/script/boardDefaultCss.jsp"/>
+        <put-attribute name="js" value="/WEB-INF/tiles-view/script/boardSearchJs.jsp"/>       
+    </definition>
+     
+    <!-- 글쓰기 -->
+    <definition name="boardWrite" extends="boardList">
+    	<put-attribute name="title" value="글 쓰기 페이지"/>
+    	<put-attribute name="body" value="/WEB-INF/tiles-view/boardWrite.jsp"/>
+    	<put-attribute name="js" value=""/>
+    </definition>
+    
+    <!-- error 페이지 처리 -->
+    <definition name="pageError" extends="boardList">
+    	<put-attribute name="title" value="에러 페이지"/>
+    	<put-attribute name="body" value="/WEB-INF/tiles-view/pageError.jsp"/>
+    	<put-attribute name="js" value=""/>
+    </definition>
+    
+    
+    <!-- 상세페이지 (Controller에서 이동시키는 page명과 name이 같아야한다.(대소문자 구분))-->
+    <definition name="boardView" extends="boardList">
+    	<put-attribute name="title" value="상세보기 페이지"/>
+    	<put-attribute name="body" value="/WEB-INF/tiles-view/boardView.jsp"/>
+    	<put-attribute name="js" value=""/>
+    </definition>
+    
+     <!-- 글 수정 페이지 -->
+     <definition name="boardModify" extends="boardList">
+     	<put-attribute name="type" value="수정하기 페이지"/>
+     	<put-attribute name="body" value="/WEB-INF/tiles-view/boardModify.jsp"/>
+     	<put-attribute name="js" value=""/>     	
+     </definition>
+    
+    <!-- 글 삭제 페이지 -->
+     <definition name="boardDelete" extends="boardList">
+     	<put-attribute name="type" value="삭제하기 페이지"/>
+     	<put-attribute name="body" value="/WEB-INF/tiles-view/boardDelete.jsp"/>
+     	<put-attribute name="js" value=""/>     	
+     </definition>
+</tiles-definitions>

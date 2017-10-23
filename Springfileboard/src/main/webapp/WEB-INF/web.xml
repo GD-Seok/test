@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
+id="WebApp_ID" version="3.1">
+	<display-name>Archetype Created Web Application</display-name>
+
+	<!-- 1.외부의 DB에 관련된 환경설정을 불러오는 경우
+	 	<param-value>/WEB-INF/dataAccessContext-local.xml</param-value> 대신에
+	 	다른 경로의 DB연동 파일(.xml)을 설정하고 불러오는 방법
+	 	접두어(classpath): 경로포함해서 불러올 환경설정 파일명
+	-->	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:config/applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<!-- *.do 요청이 들어왔을 때, dispatcher-servlet 이라는 이름의 파일을 찾아 간다. -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+		 <!-- 웹상에서의 한글처리(jsp)  -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>
+           org.springframework.web.filter.CharacterEncodingFilter
+        </filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    
+    <!-- 어떻게 요청시 한글이 지원이 되게 할것인가  -->
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+</web-app>
